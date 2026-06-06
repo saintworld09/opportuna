@@ -17,11 +17,21 @@ async function loadJobDetails() {
   try {
     const id = getJobId();
 
+    if (!id) {
+      container.innerHTML = `
+        <div style="padding:20px;">
+          <h2>Invalid job link</h2>
+          <a href="./index.html">Go back home</a>
+        </div>
+      `;
+      return;
+    }
+
     const jobs = await getJobs();
 
     const job = jobs.find(j => String(j.id) === String(id));
 
-    // Handle missing job safely
+    // If job not found
     if (!job) {
       container.innerHTML = `
         <div style="padding:20px;">
@@ -33,22 +43,27 @@ async function loadJobDetails() {
     }
 
     container.innerHTML = `
-      <h1>${job.title}</h1>
-      <h3>${job.company_name}</h3>
+      <h1>${job.title || "No title available"}</h1>
+      <h3>${job.company_name || "Unknown company"}</h3>
 
-      <p><strong>Location:</strong> ${job.candidate_required_location}</p>
+      <p><strong>Location:</strong> ${job.candidate_required_location || "Worldwide"}</p>
 
       <br/>
 
       <div>
-        ${job.description ? job.description.slice(0, 500) + "..." : "No description available"}
+        ${
+          job.description
+            ? job.description.length > 500
+              ? job.description.slice(0, 500) + "..."
+              : job.description
+            : "No description available"
+        }
       </div>
 
       <br/>
 
-      <!-- APPLY BUTTON (SAFE VERSION) -->
       ${
-        job.url
+        job.url && job.url.startsWith("http")
           ? `
             <a href="${job.url}" target="_blank" rel="noopener noreferrer">
               <button class="apply-btn">Apply Now</button>
@@ -61,7 +76,6 @@ async function loadJobDetails() {
           `
       }
     `;
-
   } catch (error) {
     console.error("Job Details Error:", error);
 
