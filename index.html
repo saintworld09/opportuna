@@ -27,34 +27,58 @@
 
     <!-- SEARCH BAR -->
     <div class="search-box">
-      <input type="text" placeholder="Search jobs (e.g. Developer, Designer)" />
-      <button>Search</button>
-    </div>
-  </section>
+  <input
+    type="text"
+    id="search-input"
+    placeholder="Search jobs, companies, or locations..."
+  />
+
+  <button id="search-btn">
+    Search
+  </button>
+
+  <button id="reset-filters" class="reset-btn">
+  Reset Filters
+</button>
+</div>
 
   <!-- FILTERS -->
   <section class="filters">
-    <select>
-      <option>All Locations</option>
-      <option>Remote</option>
-      <option>Nigeria</option>
-      <option>USA</option>
-    </select>
 
-    <select>
-      <option>Job Type</option>
-      <option>Full-Time</option>
-      <option>Part-Time</option>
-      <option>Contract</option>
-      <option>Internship</option>
-    </select>
+  <!-- LOCATION -->
+  <select id="location-filter">
+    <option value="all">All Locations</option>
+    <option value="remote">Remote</option>
+    <option value="usa">USA</option>
+    <option value="europe">Europe</option>
+    <option value="worldwide">Worldwide</option>
+  </select>
 
-    <select>
-      <option>Sort By</option>
-      <option>Newest</option>
-      <option>Oldest</option>
-    </select>
-  </section>
+  <!-- JOB TYPE -->
+  <select id="type-filter">
+    <option value="all">Job Type</option>
+    <option value="full-time">Full-Time</option>
+    <option value="part-time">Part-Time</option>
+    <option value="contract">Contract</option>
+    <option value="internship">Internship</option>
+  </select>
+
+  <!-- SORT -->
+  <select id="sort-filter">
+    <option value="newest">Newest</option>
+    <option value="oldest">Oldest</option>
+  </select>
+
+</section>
+
+<!-- RECENTLY VIEWED JOBS -->
+<section class="recent-section">
+  <h2>Recently Viewed Jobs</h2>
+
+  <div class="recent-jobs-container"></div>
+</section>
+
+
 
   <!-- JOB LISTINGS -->
   <section class="jobs-container">
@@ -63,5 +87,6 @@
   </section>
 
   <script type="module" src="/src/js/main.js"></script>
+  <div id="toast"></div>
 </body>
 </html>

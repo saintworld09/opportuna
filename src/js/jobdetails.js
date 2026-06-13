@@ -10,6 +10,29 @@ function getJobId() {
   return params.get("id");
 }
 
+container.innerHTML = `
+  <div class="loading-container">
+    <div class="loader"></div>
+    <p>Loading job details...</p>
+  </div>
+`;
+
+/**
+ * Show toast message
+ */
+function showToast(message) {
+  const toast = document.getElementById("toast");
+
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2500);
+}
+
 /**
  * Load job details
  */
@@ -31,7 +54,7 @@ async function loadJobDetails() {
 
     const job = jobs.find(j => String(j.id) === String(id));
 
-    // If job not found
+    // If job not found → STOP here
     if (!job) {
       container.innerHTML = `
         <div style="padding:20px;">
@@ -42,40 +65,86 @@ async function loadJobDetails() {
       return;
     }
 
+    // ✅ Save recently viewed job (SAFE)
+    let recentJobs = JSON.parse(localStorage.getItem("recentJobs")) || [];
+
+const jobUrl = job.url; // IMPORTANT
+
+if (jobUrl) {
+  recentJobs = recentJobs.filter(url => url !== jobUrl);
+
+  recentJobs.unshift(jobUrl);
+
+  recentJobs = recentJobs.slice(0, 5);
+
+  localStorage.setItem("recentJobs", JSON.stringify(recentJobs));
+}
+
+    // Render UI
     container.innerHTML = `
-      <h1>${job.title || "No title available"}</h1>
-      <h3>${job.company_name || "Unknown company"}</h3>
+      <div class="job-detail-card">
 
-      <p><strong>Location:</strong> ${job.candidate_required_location || "Worldwide"}</p>
+        <div class="job-header">
+          <h1>${job.title || "No title available"}</h1>
+          <p class="company-name">
+            ${job.company_name || "Unknown company"}
+          </p>
+        </div>
 
-      <br/>
+        <div class="job-meta">
+          <p>
+            <strong>Location:</strong>
+            ${job.candidate_required_location || "Worldwide"}
+          </p>
 
-      <div>
-        ${
-          job.description
-            ? job.description.length > 500
-              ? job.description.slice(0, 500) + "..."
-              : job.description
-            : "No description available"
-        }
+          <p>
+            <strong>Job ID:</strong>
+            ${job.id}
+          </p>
+        </div>
+
+        <div class="job-description">
+          <h2>Job Description</h2>
+          ${
+            job.description
+              ? job.description.length > 1000
+                ? job.description.slice(0, 1000) + "..."
+                : job.description
+              : "No description available"
+          }
+        </div>
+
+        <div class="job-actions">
+
+          ${
+            job.url && job.url.startsWith("http")
+              ? `
+                <a href="${job.url}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  <button class="apply-btn">
+                    Apply Now
+                  </button>
+                </a>
+              `
+              : `
+                <button class="apply-btn" disabled>
+                  No Application Link Available
+                </button>
+              `
+          }
+
+          <button
+            class="save-btn"
+            onclick="saveJob('${job.id}')">
+            Save Job
+          </button>
+
+        </div>
+
       </div>
-
-      <br/>
-
-      ${
-        job.url && job.url.startsWith("http")
-          ? `
-            <a href="${job.url}" target="_blank" rel="noopener noreferrer">
-              <button class="apply-btn">Apply Now</button>
-            </a>
-          `
-          : `
-            <button class="apply-btn" disabled>
-              No Application Link Available
-            </button>
-          `
-      }
     `;
+
   } catch (error) {
     console.error("Job Details Error:", error);
 
@@ -89,3 +158,24 @@ async function loadJobDetails() {
 }
 
 loadJobDetails();
+
+/**
+ * Save job to localStorage
+ */
+window.saveJob = function (id) {
+  let savedJobs =
+    JSON.parse(localStorage.getItem("savedJobs")) || [];
+
+  if (!savedJobs.includes(id)) {
+    savedJobs.push(id);
+
+    localStorage.setItem(
+      "savedJobs",
+      JSON.stringify(savedJobs)
+    );
+
+    showToast("Job saved successfully!");
+  } else {
+    showToast("Job already saved.");
+  }
+};

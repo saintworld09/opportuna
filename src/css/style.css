@@ -215,3 +215,304 @@ v.load-more-btn {
   background-color: #14B8A6;
   color: white;
 }
+
+.job-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.save-btn {
+  background: #0f172a;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #14b8a6;
+}
+
+.view-btn {
+  color: #14b8a6;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.job-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.save-btn {
+  background: #0f172a;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #14b8a6;
+}
+
+.view-btn {
+  color: #14b8a6;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+/* ==========================
+   JOB DETAILS PAGE
+========================== */
+
+.job-detail-card {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.job-header h1 {
+  color: #0F172A;
+  margin-bottom: 10px;
+}
+
+.company-name {
+  color: #14B8A6;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.job-meta {
+  margin: 20px 0;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.job-description {
+  line-height: 1.8;
+  margin-top: 20px;
+}
+
+.job-description h2 {
+  margin-bottom: 15px;
+}
+
+.job-actions {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.apply-btn,
+.save-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.apply-btn {
+  background: #14B8A6;
+  color: white;
+}
+
+.apply-btn:hover {
+  background: #0f766e;
+}
+
+.save-btn {
+  background: #0F172A;
+  color: white;
+}
+
+.save-btn:hover {
+  background: #1e293b;
+}
+
+/* ==========================
+   TOAST NOTIFICATION
+========================== */
+
+#toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+
+  background: #14B8A6;
+  color: white;
+
+  padding: 14px 20px;
+
+  border-radius: 8px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+  font-size: 14px;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(-20px);
+
+  transition: all 0.3s ease;
+
+  z-index: 9999;
+}
+
+#toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* ==========================
+   LOADING STATE
+========================== */
+
+.loading-container {
+  text-align: center;
+  padding: 50px;
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+
+  border: 5px solid #e5e7eb;
+  border-top: 5px solid #14B8A6;
+
+  border-radius: 50%;
+
+  margin: 0 auto 15px;
+
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================
+   ERROR STATE
+========================== */
+
+.error-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.error-state h3 {
+  color: #dc2626;
+  margin-bottom: 10px;
+}
+
+.error-state p {
+  color: #64748b;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-state h2 {
+  margin-bottom: 10px;
+  color: #0F172A;
+}
+
+.empty-state p {
+  color: #64748b;
+}
+
+.view-btn {
+  background: #14B8A6;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.view-btn:hover {
+  background: #0f766e;
+}
+
+/* RECENTLY VIEWED JOBS */
+
+.recent-section {
+  padding: 20px;
+}
+
+.recent-section h2 {
+  margin-bottom: 15px;
+  color: #0F172A;
+}
+
+.recent-jobs-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  );
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.saved-header {
+  margin-bottom: 20px;
+}
+
+.saved-header h2 {
+  color: #333;
+}
+
+.saved-jobs-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.empty-state h2 {
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  margin-bottom: 20px;
+}
+
+.reset-btn {
+  padding: 10px 15px;
+  border: none;
+  background: #e74c3c;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.reset-btn:hover {
+  background: #c0392b;
+}
